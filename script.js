@@ -1,60 +1,103 @@
+// Navbar scroll effect
+const navbar = document.querySelector('.navbar');
+const header = document.querySelector('.header-content');
+const contentSection = document.querySelector('.content-section');
+const footer = document.querySelector('.main-footer');
+
+const updateNavbarColor = () => {
+    const scrollPos = window.scrollY + navbar.offsetHeight / 2;
+    
+    // Check which section we are currently in
+    const headerRect = header.getBoundingClientRect();
+    const contentRect = contentSection.getBoundingClientRect();
+    const footerRect = footer.getBoundingClientRect();
+
+    // Adjust for absolute scroll position
+    const headerTop = headerRect.top + window.scrollY;
+    const contentTop = contentRect.top + window.scrollY;
+    const footerTop = footerRect.top + window.scrollY;
+
+    if (scrollPos >= footerTop) {
+        navbar.classList.add('on-dark');
+        navbar.classList.remove('on-light');
+    } else if (scrollPos >= contentTop) {
+        navbar.classList.add('on-light');
+        navbar.classList.remove('on-dark');
+    } else {
+        navbar.classList.add('on-dark');
+        navbar.classList.remove('on-light');
+    }
+};
+
+window.addEventListener('scroll', updateNavbarColor);
+updateNavbarColor(); // Initial check
+
 // GSAP Truus-style Card Hover Animation
 const cards = gsap.utils.toArray(".card");
 
+// Original rotations from CSS
+const originalData = [
+    { rotation: 4 },
+    { rotation: -10 },
+    { rotation: 5 },
+    { rotation: -8 },
+    { rotation: 5 }
+];
+
 cards.forEach((card, index) => {
-  card.addEventListener("mouseenter", () => {
-    cards.forEach((otherCard, otherIndex) => {
-      if (otherIndex !== index) {
-        // determine direction and intensity based on index difference
-        const diff = otherIndex - index;
-        const xMove = diff < 0 ? -120 - Math.abs(diff) * 30 : 120 + Math.abs(diff) * 30;
-        const yMove = diff * 25 + (Math.random() - 0.5) * 30;
-        const rotateMove = diff < 0 ? -8 - Math.random() * 8 : 8 + Math.random() * 8;
+    card.addEventListener("mouseenter", () => {
+        const overlap = 60;
+        const hoverGap = 80;
 
-        gsap.to(otherCard, {
-          x: xMove,
-          y: yMove,
-          rotation: rotateMove,
-          scale: 0.9,
-          duration: 0.6,
-          ease: "power3.out",
-          overwrite: true
+        cards.forEach((otherCard, otherIndex) => {
+            const diff = otherIndex - index;
+            const stackIndex = Math.abs(diff) - 1;
+
+            if (otherIndex === index) {
+                gsap.to(otherCard, {
+                    x: 0,
+                    y: 0,
+                    rotation: 0,
+                    scale: 1.08,
+                    duration: 0.6,
+                    ease: "elastic.out(1, 0.7)",
+                    overwrite: true,
+                    zIndex: 20
+                });
+            } else {
+                let targetX;
+                if (otherIndex < index) {
+                    targetX = -hoverGap - (stackIndex * overlap);
+                } else {
+                    targetX = hoverGap + (stackIndex * overlap);
+                }
+
+                gsap.to(otherCard, {
+                    x: targetX,
+                    y: diff * 15,
+                    rotation: originalData[otherIndex].rotation * 0.5,
+                    scale: 0.95,
+                    duration: 0.7,
+                    ease: "elastic.out(1, 0.75)",
+                    overwrite: true,
+                    zIndex: 10 - stackIndex
+                });
+            }
         });
-      } else {
-        gsap.to(otherCard, {
-          scale: 1.05,
-          x: 0,
-          y: 0,
-          rotation: 0,
-          duration: 0.6,
-          ease: "power3.out",
-          overwrite: true,
-          zIndex: 10
+    });
+
+    card.addEventListener("mouseleave", () => {
+        cards.forEach((c, i) => {
+            gsap.to(c, {
+                x: 0,
+                y: 0,
+                scale: 1,
+                rotation: originalData[i].rotation,
+                duration: 0.6,
+                ease: "elastic.out(1, 0.7)",
+                overwrite: true,
+                zIndex: i + 1
+            });
         });
-      }
     });
-  });
-
-  card.addEventListener("mouseleave", () => {
-    cards.forEach((c, i) => {
-      const originalRotation = {
-        0: 4,    // card-green
-        1: -10,  // card-darkblue
-        2: 5,    // card-orange
-        3: -8,   // card-maroon
-        4: 5     // card-pink
-      };
-
-      gsap.to(c, {
-        x: 0,
-        y: 0,
-        scale: 1,
-        rotation: originalRotation[i] || 0,
-        duration: 0.5,
-        ease: "power2.out",
-        overwrite: true,
-        zIndex: i + 1 // restore original z-index
-      });
-    });
-  });
 });
