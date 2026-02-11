@@ -158,7 +158,7 @@ body::-webkit-scrollbar {
     width: 100%;
     max-width: 1400px;
     height: 650px;
-    margin: 50px auto 100px;
+    margin: 100px auto 100px 50px;
     display: flex;
     justify-content: center;
     /* Ensure no scrollbar appears from this section */
@@ -232,6 +232,7 @@ body::-webkit-scrollbar {
 }
 
 .card-orange {
+    height: 60%;
     background-color: var(--color-orange);
     color: #1a1a1a;
     left: calc(50% - 220px);
@@ -243,6 +244,7 @@ body::-webkit-scrollbar {
 }
 
 .card-maroon {
+    height: 65%;
     background-color: var(--color-maroon);
     left: calc(50% + 50px);
     /* MOVED LEFT */
@@ -253,6 +255,7 @@ body::-webkit-scrollbar {
 }
 
 .card-pink {
+    height: 60%;
     background-color: var(--color-pink);
     color: #1a1a1a;
     left: calc(50% + 320px);
@@ -308,53 +311,47 @@ body::-webkit-scrollbar {
 
 /* Sticker Positions - Refined */
 .sticker-camera {
-    width: 120px;
+    width: 140px;
     height: 90px;
-    top: -55px;
-    left: 60%;
-    transform: translateX(-50%) rotate(-15deg);
-    background-image: url('assets/sticker-camera.png');
-    background-color: #222;
+    top: -35px;
+    right: -2rem;
+    transform: translateX(-50%) rotate(5deg);
     border-radius: 12px;
 }
 
 .sticker-phone {
-    width: 100px;
+    width: 120px;
     height: 120px;
     top: -65px;
-    left: 85%;
+    right: 2rem;
     transform: rotate(10deg);
-    background: transparent;
 }
 
 .sticker-smiley {
-    width: 90px;
+    width: 110px;
     height: 90px;
     top: -45px;
-    left: 50%;
-    transform: translateX(-50%) rotate(0deg);
-    background-color: #4b69f0;
+    right: -1rem;
+    transform: translateX(-50%) rotate(20deg);
     border-radius: 50%;
 }
 
 .sticker-hand {
-    width: 100px;
+    width: 130px;
     height: 90px;
     top: -50px;
-    left: 70%;
+    left: 8rem;
     transform: rotate(-10deg);
-    background-color: #d1ff4d;
     border-radius: 15px;
 }
 
 .sticker-heart {
-    width: 90px;
+    width: 120px;
     height: 80px;
-    top: -40px;
-    right: -10px;
+    top: -2rem;
+    right: 2rem;
     left: auto;
     transform: rotate(15deg);
-    background-color: #a0325a;
     border-radius: 50%;
 }
 
