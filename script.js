@@ -4,6 +4,9 @@ const header = document.querySelector('.header-content');
 const contentSection = document.querySelector('.content-section');
 const footer = document.querySelector('.main-footer');
 
+// Register ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
+
 const updateNavbarColor = () => {
     const scrollPos = window.scrollY + navbar.offsetHeight / 2;
     
@@ -31,6 +34,19 @@ const updateNavbarColor = () => {
 
 window.addEventListener('scroll', updateNavbarColor);
 updateNavbarColor(); // Initial check
+
+// Underline Animation on Scroll
+gsap.to(".title-underline-svg path", {
+    strokeDashoffset: 0,
+    duration: 1.2,
+    ease: "power3.out",
+    stagger: 0.3,
+    scrollTrigger: {
+        trigger: ".content-section",
+        start: "top 70%", // Start when the top of the section is at 70% of the viewport height
+        once: true // Only animate once
+    }
+});
 
 // GSAP Truus-style Card Hover Animation
 const cards = gsap.utils.toArray(".card");
