@@ -135,12 +135,12 @@ body::-webkit-scrollbar {
 
 /* Content Section */
 .content-section {
-    padding: 40px 20px;
+    padding: 200px 20px 0px; /* Increased top padding from 40px to 160px */
     text-align: center;
 }
 
 .title-container {
-    margin-bottom: 60px;
+    margin-bottom: 80px; /* Increased bottom margin */
     position: relative;
     display: inline-block;
 }
@@ -169,6 +169,11 @@ body::-webkit-scrollbar {
     width: 160px;
     height: auto;
     color: #000;
+}
+
+.title-underline-svg path {
+    stroke-dasharray: 200; /* Set a large dasharray */
+    stroke-dashoffset: 200; /* Initially hide the paths */
 }
 
 /* Cards Wrapper */
