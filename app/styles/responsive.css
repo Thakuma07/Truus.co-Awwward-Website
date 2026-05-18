@@ -1,325 +1,325 @@
 /* ─── Tablet (769px – 1200px) ────────────────────────────────────────────── */
-@media (min-width: 769px) and (max-width: 1200px) {
-    .cards-wrapper {
-        height: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 50px;
-        padding-bottom: 50px;
-        gap: 30px;
-        overflow: visible;
-    }
+@media (min-width: 769px) and (max-width: 1348px) {
+  /* changed the max-width to a better brake point that also accommodate .card-green */
+  .cards-wrapper {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    padding-bottom: 50px;
+    gap: 30px;
+    overflow: visible;
+  }
 
-    .card {
-        position: relative;
-        left: auto !important;
-        top: auto !important;
-        transform: none !important;
-        width: 90%;
-        max-width: 400px;
-        height: auto;
-        min-height: 400px;
-        margin-bottom: 20px;
-    }
+  .card {
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    width: 90%;
+    max-width: 400px;
+    height: auto;
+    min-height: 400px;
+    margin-bottom: 20px;
+  }
 }
 
 /* ─── Medium screens (≤ 900px) ───────────────────────────────────────────── */
 @media (max-width: 900px) {
-    .footer-top {
-        flex-direction: column;
-        gap: 60px;
-    }
+  .footer-top {
+    flex-direction: column;
+    gap: 60px;
+  }
 
-    .footer-column h3,
-    .footer-column address,
-    .footer-email {
-        font-size: 1.5rem;
-    }
+  .footer-column h3,
+  .footer-column address,
+  .footer-email {
+    font-size: 1.5rem;
+  }
 
-    .footer-big-text {
-        font-size: 40vw;
-    }
+  .footer-big-text {
+    font-size: 40vw;
+  }
 }
 
 /* ─── Mobile (≤ 768px) ───────────────────────────────────────────────────── */
 @media (max-width: 768px) {
+  /* ── Navbar ─────────────────────── */
+  .navbar {
+    padding: 14px 16px;
+  }
 
-    /* ── Navbar ─────────────────────── */
-    .navbar {
-        padding: 14px 16px;
-    }
+  .logo-truus {
+    width: 100px;
+  }
 
-    .logo-truus {
-        width: 100px;
-    }
+  .logo-work-container {
+    width: 48px;
+    height: 44px;
+  }
 
-    .logo-work-container {
-        width: 48px;
-        height: 44px;
-    }
+  .logo-work-text {
+    font-size: 1.4rem;
+    margin-left: 52px;
+  }
 
-    .logo-work-text {
-        font-size: 1.4rem;
-        margin-left: 52px;
-    }
+  .nav-bar__whatsapp-svg {
+    width: 26px;
+  }
 
-    .nav-bar__whatsapp-svg {
-        width: 26px;
-    }
+  /* ── Header Hero ────────────────── */
+  .header-content {
+    height: 100svh;
+    padding: 0 24px;
+    text-align: center;
+  }
 
-    /* ── Header Hero ────────────────── */
-    .header-content {
-        height: 100svh;
-        padding: 0 24px;
-        text-align: center;
-    }
+  .header-content h1 {
+    font-size: 2rem;
+  }
 
-    .header-content h1 {
-        font-size: 2rem;
-    }
+  /* ── Content / Hero Title ───────── */
+  .content-section {
+    padding: 80px 0 0;
+    overflow: visible;
+  }
 
-    /* ── Content / Hero Title ───────── */
-    .content-section {
-        padding: 80px 0 0;
-        overflow: visible;
-    }
+  .main-title {
+    font-size: 3rem;
+    letter-spacing: -2px;
+  }
 
-    .main-title {
-        font-size: 3rem;
-        letter-spacing: -2px;
-    }
+  .title-underline-svg {
+    width: 100px;
+    bottom: -10px;
+  }
 
-    .title-underline-svg {
-        width: 100px;
-        bottom: -10px;
-    }
+  .title-container {
+    margin-bottom: 50px;
+  }
 
-    .title-container {
-        margin-bottom: 50px;
-    }
+  /* ── Cards (GSAP-controlled) ─────── */
+  .cards-wrapper {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    overflow: visible !important;
+  }
 
-    /* ── Cards (GSAP-controlled) ─────── */
-    .cards-wrapper {
-        position: relative !important;
-        display: block !important;
-        width: 100% !important;
-        margin: 0 auto !important;
-        overflow: visible !important;
-    }
+  .card {
+    width: 82vw;
+    max-width: 340px;
+    min-height: 420px;
+    height: auto;
+  }
 
-    .card {
-        width: 82vw;
-        max-width: 340px;
-        min-height: 420px;
-        height: auto;
-    }
+  .card-sticker {
+    pointer-events: none;
+  }
 
-    .card-sticker {
-        pointer-events: none;
-    }
+  /* ── Double Marquee ─────────────── */
+  .Double-marquee {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 60px 24px 0;
+    gap: 0;
+    min-height: unset;
+  }
 
-    /* ── Double Marquee ─────────────── */
-    .Double-marquee {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 60px 24px 0;
-        gap: 0;
-        min-height: unset;
-    }
+  .marquee-left {
+    max-width: 100%;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-height: 340px;
+  }
 
-    .marquee-left {
-        max-width: 100%;
-        width: 100%;
-        justify-content: flex-start;
-        align-items: flex-start;
-        min-height: 340px;
-    }
+  .marquee-text-container {
+    text-align: left;
+  }
 
-    .marquee-text-container {
-        text-align: left;
-    }
+  .marquee-left h2 {
+    font-size: 2.6rem;
+    letter-spacing: -1.5px;
+    margin-bottom: 0;
+    margin-right: 0;
+  }
 
-    .marquee-left h2 {
-        font-size: 2.6rem;
-        letter-spacing: -1.5px;
-        margin-bottom: 0;
-        margin-right: 0;
-    }
+  .marquee-blob-container {
+    width: 240px;
+    height: 280px;
+    top: 45%;
+    left: 20%;
+  }
 
-    .marquee-blob-container {
-        width: 240px;
-        height: 280px;
-        top: 45%;
-        left: 20%;
-    }
+  .marquee-svg-item:nth-child(1) {
+    width: 60px;
+    bottom: 10%;
+    left: 55%;
+  }
 
-    .marquee-svg-item:nth-child(1) {
-        width: 60px;
-        bottom: 10%;
-        left: 55%;
-    }
+  .marquee-svg-item:nth-child(2) {
+    width: 220px;
+    bottom: -5%;
+    left: 55%;
+  }
 
-    .marquee-svg-item:nth-child(2) {
-        width: 220px;
-        bottom: -5%;
-        left: 55%;
-    }
+  .marquee-underline {
+    top: 5rem;
+    right: auto;
+    left: 9.5rem;
+    width: 70px;
+  }
 
-    .marquee-underline {
-        top: 5rem;
-        right: auto;
-        left: 9.5rem;
-        width: 70px;
-    }
+  /* ── Logo columns → 2-row horizontal scroll grid ── */
+  .marquee-right {
+    display: grid;
+    grid-template-rows: 130px 130px;
+    grid-auto-flow: column;
+    grid-auto-columns: 130px;
+    gap: 8px;
+    width: 100%;
+    height: auto;
+    margin-right: 0;
+    padding: 20px 24px 32px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
 
-    /* ── Logo columns → 2-row horizontal scroll grid ── */
-    .marquee-right {
-        display: grid;
-        grid-template-rows: 130px 130px;
-        grid-auto-flow: column;
-        grid-auto-columns: 130px;
-        gap: 8px;
-        width: 100%;
-        height: auto;
-        margin-right: 0;
-        padding: 20px 24px 32px;
-        overflow-x: auto;
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-    }
+  .marquee-right::-webkit-scrollbar {
+    display: none;
+  }
 
-    .marquee-right::-webkit-scrollbar {
-        display: none;
-    }
+  .marquee-column {
+    display: contents;
+  }
 
-    .marquee-column {
-        display: contents;
-    }
+  .marquee-column::before,
+  .marquee-column::after {
+    display: none;
+  }
 
-    .marquee-column::before,
-    .marquee-column::after {
-        display: none;
-    }
+  .marquee-column:nth-child(1) .marquee-track,
+  .marquee-column:nth-child(2) .marquee-track {
+    display: contents;
+    animation: none;
+  }
 
-    .marquee-column:nth-child(1) .marquee-track,
-    .marquee-column:nth-child(2) .marquee-track {
-        display: contents;
-        animation: none;
-    }
+  .marquee-item {
+    width: 130px;
+    height: 130px;
+    flex-shrink: 0;
+  }
 
-    .marquee-item {
-        width: 130px;
-        height: 130px;
-        flex-shrink: 0;
-    }
+  /* ── Footer ─────────────────────── */
+  .main-footer {
+    padding: 6px;
+  }
 
-    /* ── Footer ─────────────────────── */
-    .main-footer {
-        padding: 6px;
-    }
+  .footer-inner {
+    padding: 50px 20px 30px;
+    border-radius: 14px;
+    min-height: 100svh;
+  }
 
-    .footer-inner {
-        padding: 50px 20px 30px;
-        border-radius: 14px;
-        min-height: 100svh;
-    }
+  .footer-top {
+    flex-direction: column;
+    gap: 36px;
+  }
 
-    .footer-top {
-        flex-direction: column;
-        gap: 36px;
-    }
+  .footer-column h3 {
+    font-size: 1.4rem;
+    letter-spacing: -0.5px;
+  }
 
-    .footer-column h3 {
-        font-size: 1.4rem;
-        letter-spacing: -0.5px;
-    }
+  .footer-column address {
+    font-size: 1.25rem;
+  }
 
-    .footer-column address {
-        font-size: 1.25rem;
-    }
+  .footer-email {
+    font-size: 1.3rem;
+  }
 
-    .footer-email {
-        font-size: 1.3rem;
-    }
+  .footer-whatsapp {
+    font-size: 1.1rem;
+    margin-top: -6px;
+  }
 
-    .footer-whatsapp {
-        font-size: 1.1rem;
-        margin-top: -6px;
-    }
+  .footer-map-link {
+    font-size: 0.95rem;
+  }
 
-    .footer-map-link {
-        font-size: 0.95rem;
-    }
+  /* ── Footer Stickers (mobile) ──── */
+  .sticker-boom {
+    left: 2%;
+    bottom: 10%;
+    width: 90px;
+  }
 
-    /* ── Footer Stickers (mobile) ──── */
-    .sticker-boom {
-        left: 2%;
-        bottom: 10%;
-        width: 90px;
-    }
+  .sticker-smiley {
+    left: 30%;
+    bottom: 5%;
+    width: 90px;
+  }
 
-    .sticker-smiley {
-        left: 30%;
-        bottom: 5%;
-        width: 90px;
-    }
+  .sticker-heart {
+    left: 50%;
+    bottom: 18%;
+    width: 85px;
+  }
 
-    .sticker-heart {
-        left: 50%;
-        bottom: 18%;
-        width: 85px;
-    }
+  .footer-sticker.sticker-hands {
+    left: 60%;
+    bottom: 2%;
+    width: 90px;
+  }
 
-    .footer-sticker.sticker-hands {
-        left: 60%;
-        bottom: 2%;
-        width: 90px;
-    }
+  .footer-sticker.sticker-100 {
+    left: 72%;
+    bottom: 20%;
+    width: 80px;
+  }
 
-    .footer-sticker.sticker-100 {
-        left: 72%;
-        bottom: 20%;
-        width: 80px;
-    }
+  .footer-sticker.sticker-camera {
+    right: 2%;
+    bottom: 8%;
+    width: 85px;
+  }
 
-    .footer-sticker.sticker-camera {
-        right: 2%;
-        bottom: 8%;
-        width: 85px;
-    }
+  /* ── Footer wordmark ────────────── */
+  .footer-bottom {
+    margin-top: 200px;
+  }
 
-    /* ── Footer wordmark ────────────── */
-    .footer-bottom {
-        margin-top: 200px;
-    }
+  .footer-logo__svg {
+    width: 110%;
+    margin-left: -5%;
+  }
 
-    .footer-logo__svg {
-        width: 110%;
-        margin-left: -5%;
-    }
+  /* ── Credits badge ──────────────── */
+  .footer-credits-wrapper {
+    margin-right: -15px;
+    margin-bottom: -15px;
+  }
 
-    /* ── Credits badge ──────────────── */
-    .footer-credits-wrapper {
-        margin-right: -15px;
-        margin-bottom: -15px;
-    }
+  .footer-credits {
+    font-size: 0.75rem;
+  }
 
-    .footer-credits {
-        font-size: 0.75rem;
-    }
+  .credits-box {
+    padding: 16px 20px;
+    gap: 20px;
+  }
 
-    .credits-box {
-        padding: 16px 20px;
-        gap: 20px;
-    }
+  .credits-label {
+    font-size: 0.85rem;
+  }
 
-    .credits-label {
-        font-size: 0.85rem;
-    }
-
-    .credits-name {
-        font-size: 0.95rem;
-    }
+  .credits-name {
+    font-size: 0.95rem;
+  }
 }
