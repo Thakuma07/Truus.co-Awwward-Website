@@ -1,212 +1,219 @@
 /* ─── Cards Wrapper ──────────────────────────────────────────────────────── */
 .cards-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 1400px;
-    height: 650px;
-    margin: 100px auto 100px 100px;
-    display: flex;
-    justify-content: center;
-    cursor: url("/assets/Cursor SVG/cursor-text.svg") 12 12, auto;
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  height: 650px;
+  /* margin: 100px auto 100px 100px; caused issues with layout */
+  margin: 100px auto;
+  display: flex;
+  justify-content: center;
+  cursor:
+    url("/assets/Cursor SVG/cursor-text.svg") 12 12,
+    auto;
 }
 
 /* ─── Base Card ──────────────────────────────────────────────────────────── */
 .card {
-    width: 320px;
-    height: 460px;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: stretch;
-    gap: 1.5rem;
-    padding: 3.5rem 1.5rem 1.5rem;
-    cursor: pointer;
-    border-radius: 10px;
-    color: var(--color-white);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    transform-origin: center center;
-    cursor: url("/assets/Cursor SVG/cursor-text.svg") 12 12, auto;
+  width: 320px;
+  height: 460px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 1.5rem;
+  padding: 3.5rem 1.5rem 1.5rem;
+  cursor: pointer;
+  border-radius: 10px;
+  color: var(--color-white);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transform-origin: center center;
+  cursor:
+    url("/assets/Cursor SVG/cursor-text.svg") 12 12,
+    auto;
 }
 
 .card-title {
-    text-align: left;
-    font-size: 2.2rem;
-    font-family: 'Epilogue', sans-serif;
-    font-weight: 800;
-    margin-top: 30px;
-    line-height: 1;
-    letter-spacing: -1px;
+  text-align: left;
+  font-size: 2.2rem;
+  font-family: "Epilogue", sans-serif;
+  font-weight: 800;
+  margin-top: 30px;
+  line-height: 1;
+  letter-spacing: -1px;
 }
 
 .card-divider-svg {
-    width: 100%;
-    height: auto;
-    display: block;
-    color: rgba(255, 255, 255, 0.8);
-    margin: 0;
+  width: 100%;
+  height: auto;
+  display: block;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
 }
 
 /* ─── Card Color Variants ────────────────────────────────────────────────── */
 .card-green {
-    background-color: var(--color-green);
-    left: calc(50% - 700px);
-    top: 50px;
-    transform: rotate(4deg);
-    z-index: 1;
+  background-color: var(--color-green);
+  left: calc(
+    50% - 650px
+  ); /* Adjusted to -650px to better center the first card */
+  top: 50px;
+  transform: rotate(4deg);
+  z-index: 1;
 }
 
 .card-darkblue {
-    background-color: var(--color-lightblue);
-    color: var(--color-dark);
-    left: calc(50% - 430px);
-    top: 100px;
-    transform: rotate(-5deg);
-    z-index: 2;
+  background-color: var(--color-lightblue);
+  color: var(--color-dark);
+  left: calc(50% - 430px);
+  top: 100px;
+  transform: rotate(-5deg);
+  z-index: 2;
 }
 
 .card-orange {
-    background-color: var(--color-orange);
-    color: var(--color-dark);
-    left: calc(50% - 220px);
-    top: 20px;
-    transform: rotate(5deg);
-    z-index: 3;
+  background-color: var(--color-orange);
+  color: var(--color-dark);
+  left: calc(50% - 220px);
+  top: 20px;
+  transform: rotate(5deg);
+  z-index: 3;
 }
 
 .card-maroon {
-    background-color: var(--color-maroon);
-    left: calc(50% + 50px);
-    top: 30px;
-    transform: rotate(-8deg);
-    z-index: 4;
+  background-color: var(--color-maroon);
+  left: calc(50% + 50px);
+  top: 30px;
+  transform: rotate(-8deg);
+  z-index: 4;
 }
 
 .card-pink {
-    background-color: var(--color-pink);
-    color: var(--color-dark);
-    left: calc(50% + 320px);
-    top: 70px;
-    transform: rotate(5deg);
-    z-index: 5;
+  background-color: var(--color-pink);
+  color: var(--color-dark);
+  left: calc(50% + 320px);
+  top: 70px;
+  transform: rotate(5deg);
+  z-index: 5;
 }
 
 /* Expand hit area for middle cards to bridge gaps */
 .card-darkblue::after,
 .card-orange::after,
 .card-maroon::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: -35px;
-    right: -35px;
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -35px;
+  right: -35px;
 }
 
 /* Light card divider overrides */
 .card-pink .card-divider-svg,
 .card-orange .card-divider-svg,
 .card-darkblue .card-divider-svg {
-    color: rgba(0, 0, 0, 0.8);
+  color: rgba(0, 0, 0, 0.8);
 }
 
 /* ─── Card List ──────────────────────────────────────────────────────────── */
 .card-list {
-    list-style: none;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
+  list-style: none;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
 }
 
 .card-list li {
-    margin-bottom: 8px;
-    font-size: 1.15rem;
-    font-weight: 500;
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    line-height: 1.3;
-    letter-spacing: -0.3px;
+  margin-bottom: 8px;
+  font-size: 1.15rem;
+  font-weight: 500;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  line-height: 1.3;
+  letter-spacing: -0.3px;
 }
 
 .services-card__bullet-svg {
-    width: 14px;
-    height: 18px;
-    flex-shrink: 0;
-    margin-top: 2px;
-    color: currentColor;
+  width: 14px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: currentColor;
 }
 
 /* ─── Card Sticker Variables ─────────────────────────────────────────────── */
 :root {
-    --sticker-camera-w: 160px;
-    --sticker-phone-w: 120px;
-    --sticker-smiley-w: 120px;
-    --sticker-hand-w: 120px;
-    --sticker-heart-w: 140px;
+  --sticker-camera-w: 160px;
+  --sticker-phone-w: 120px;
+  --sticker-smiley-w: 120px;
+  --sticker-hand-w: 120px;
+  --sticker-heart-w: 140px;
 
-    --sticker-camera-top: -45px;
-    --sticker-camera-left: 120px;
+  --sticker-camera-top: -45px;
+  --sticker-camera-left: 120px;
 
-    --sticker-phone-top: -45px;
-    --sticker-phone-left: 155px;
+  --sticker-phone-top: -45px;
+  --sticker-phone-left: 155px;
 
-    --sticker-smiley-top: -50px;
+  --sticker-smiley-top: -50px;
 
-    --sticker-hand-top: -40px;
+  --sticker-hand-top: -40px;
 
-    --sticker-heart-top: -50px;
-    --sticker-heart-right: 15px;
+  --sticker-heart-top: -50px;
+  --sticker-heart-right: 15px;
 }
 
 /* ─── Card Stickers ──────────────────────────────────────────────────────── */
 .card-sticker {
-    position: absolute;
-    z-index: 10;
-    pointer-events: none;
+  position: absolute;
+  z-index: 10;
+  pointer-events: none;
 }
 
 .card-sticker svg {
-    display: block;
-    width: 100%;
-    height: 100%;
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .card-sticker.sticker-camera {
-    width: var(--sticker-camera-w);
-    height: auto;
-    top: var(--sticker-camera-top);
-    left: var(--sticker-camera-left);
-    transform: rotate(3deg);
+  width: var(--sticker-camera-w);
+  height: auto;
+  top: var(--sticker-camera-top);
+  left: var(--sticker-camera-left);
+  transform: rotate(3deg);
 }
 
 .card-sticker.sticker-phone {
-    width: var(--sticker-phone-w);
-    height: auto;
-    top: var(--sticker-phone-top);
-    left: var(--sticker-phone-left);
-    transform: rotate(1deg);
+  width: var(--sticker-phone-w);
+  height: auto;
+  top: var(--sticker-phone-top);
+  left: var(--sticker-phone-left);
+  transform: rotate(1deg);
 }
 
 .card-sticker.sticker-smiley {
-    width: var(--sticker-smiley-w);
-    height: auto;
-    top: var(--sticker-smiley-top);
-    left: 70%;
-    transform: translateX(-50%) rotate(4deg);
+  width: var(--sticker-smiley-w);
+  height: auto;
+  top: var(--sticker-smiley-top);
+  left: 70%;
+  transform: translateX(-50%) rotate(4deg);
 }
 
 .card-sticker.sticker-hand {
-    width: var(--sticker-hand-w);
-    height: auto;
-    top: var(--sticker-hand-top);
-    left: 70%;
-    transform: translateX(-50%) rotate(8deg);
+  width: var(--sticker-hand-w);
+  height: auto;
+  top: var(--sticker-hand-top);
+  left: 70%;
+  transform: translateX(-50%) rotate(8deg);
 }
 
 .card-sticker.sticker-heart {
-    width: var(--sticker-heart-w);
-    height: auto;
-    top: var(--sticker-heart-top);
-    right: var(--sticker-heart-right);
-    transform: rotate(1deg);
+  width: var(--sticker-heart-w);
+  height: auto;
+  top: var(--sticker-heart-top);
+  right: var(--sticker-heart-right);
+  transform: rotate(1deg);
 }
