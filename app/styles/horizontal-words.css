@@ -4,7 +4,7 @@
     position: relative;
     width: 100%;
     /* Keep section nicely sized so it takes up full viewport */
-    height: 100vh;
+    height: 100svh;
     background-color: var(--bg-color);
     overflow: hidden;
     /* Removed flex to control absolute positioning manually */
@@ -115,4 +115,41 @@
     position: relative;
     z-index: 2;
     white-space: nowrap;
+}
+
+/* ─── Mobile (≤ 768px) ───────────────────────────────────────────────────
+   This file is imported directly by HorizontalWords.jsx rather than
+   through globals.css like every other section's CSS, which places it
+   LAST in the final bundle — after responsive.css. That meant a mobile
+   override placed in responsive.css for these same selectors was being
+   silently beaten by the base rules below, regardless of viewport,
+   because within the compiled stylesheet this file's un-media-queried
+   rules came later. Keeping the mobile override here, after the base
+   rules in the same file, removes that ambiguity entirely: source order
+   within one file is always deterministic.
+   ── */
+@media (max-width: 768px) {
+    /* The bottom paragraph was `width: max-content` with a 40em
+       max-width (~832px) and centered with left:50% — on a phone
+       that's wider than the viewport, so it got clipped on both sides
+       by the section's overflow:hidden. Cap it to the viewport. */
+    .horizontal-words__bottom-text {
+        width: min(88vw, 40em);
+    }
+
+    .horizontal-words__bottom-text-l {
+        max-width: 88vw;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .horizontal-words__h2 {
+        font-size: 11vw;
+    }
+
+    .horizontal-words__sticker-cursor,
+    .horizontal-words__sticker-phone,
+    .horizontal-words__sticker-watch {
+        width: 4.5em;
+    }
 }

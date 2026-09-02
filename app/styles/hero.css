@@ -1,17 +1,17 @@
 /* ─── Hero / Content Section ─────────────────────────────────────────────── */
 .content-section {
-    padding: 200px 20px 0px;
+    padding: clamp(80px, 18vw, 200px) 24px 0px;
     text-align: center;
 }
 
 .title-container {
-    margin-bottom: 80px;
+    margin-bottom: clamp(40px, 8vw, 80px);
     position: relative;
     display: inline-block;
 }
 
 .main-title {
-    font-size: 6rem;
+    font-size: clamp(2.25rem, 8vw, 6rem);
     font-family: 'Epilogue', sans-serif;
     font-weight: 800;
     letter-spacing: -4px;

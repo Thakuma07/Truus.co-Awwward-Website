@@ -2,7 +2,7 @@
 .motion-card-section {
     position: relative;
     width: 100%;
-    padding: 120px 60px 100px;
+    padding: clamp(60px, 10vw, 120px) clamp(24px, 5vw, 60px) clamp(60px, 8vw, 100px);
     text-align: center;
     overflow: hidden;
     z-index: 1;
@@ -17,7 +17,7 @@
 
 .motion-card__title {
     font-family: 'Epilogue', sans-serif;
-    font-size: 7rem;
+    font-size: clamp(2rem, 9vw, 7rem);
     font-weight: 750;
     line-height: 0.9;
     letter-spacing: -5px;
@@ -30,13 +30,13 @@
     font-family: 'Times New Roman', 'Georgia', serif;
     font-style: italic;
     font-weight: 400;
-    font-size: 7.5rem;
+    font-size: clamp(2.1rem, 9.5vw, 7.5rem);
     line-height: 1.15;
     letter-spacing: -2px;
     color: var(--color-dark);
     position: relative;
     display: inline-block;
-    top: -30px;
+    top: clamp(-14px, -2.5vw, -30px);
 }
 
 /* SVG sticker placeholder (top-right of subtitle) */

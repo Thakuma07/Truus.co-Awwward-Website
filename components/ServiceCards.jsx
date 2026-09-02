@@ -22,7 +22,8 @@ export default function ServiceCards() {
             }
         });
 
-        initCardAnimations();
+        const mm = initCardAnimations();
+        return () => mm && mm.revert();
     }, []);
 
     return (
@@ -70,24 +71,42 @@ export default function ServiceCards() {
     );
 }
 
+// This used to decide mobile-vs-desktop card behaviour with a single
+// `window.matchMedia(...).matches` check that only ran once, when the
+// component first mounted. That's stale the moment the viewport crosses
+// the breakpoint afterwards — e.g. resizing a DevTools device-toolbar
+// viewport without a full page reload — leaving the desktop hover-cluster
+// branch active (or vice versa). The desktop branch never sets an
+// explicit position, so cards fall back to their raw CSS offsets
+// (`left: calc(50% - 700px)` etc., authored for a ~1400px-wide desktop
+// layout), which is exactly what produced cards scattered hundreds of
+// pixels off-canvas on a 400px mobile screen.
+//
+// `gsap.matchMedia()` fixes this properly: each `.add()` block is
+// automatically re-run (after its own returned cleanup function tears
+// down whatever it set up) whenever the matched breakpoint changes, so
+// the correct behaviour is always in effect for the *current* viewport.
 function initCardAnimations() {
     const cards = gsap.utils.toArray('.card');
-    if (!cards.length) return;
+    if (!cards.length) return null;
 
-    const originalData = [
-        { rotation: 4 },
-        { rotation: -5 },
-        { rotation: 5 },
-        { rotation: -8 },
-        { rotation: 5 }
-    ];
+    const mm = gsap.matchMedia();
 
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    let leaveTimeout = null;
+    mm.add('(min-width: 769px)', () => {
+        // ─── Desktop: hover cluster ───
+        const originalData = [
+            { rotation: 4 },
+            { rotation: -5 },
+            { rotation: 5 },
+            { rotation: -8 },
+            { rotation: 5 }
+        ];
+        let leaveTimeout = null;
+        const enterHandlers = [];
+        const leaveHandlers = [];
 
-    if (!isMobile) {
         cards.forEach((card, index) => {
-            card.addEventListener('mouseenter', () => {
+            const onEnter = () => {
                 if (leaveTimeout) { clearTimeout(leaveTimeout); leaveTimeout = null; }
                 const hoverGap = 120;
                 const clusterGap = 150;
@@ -129,60 +148,83 @@ function initCardAnimations() {
                         gsap.to(item.card, { x: targetX, y: targetY, rotation: originalData[item.index].rotation, scale: 1, duration: 1.0, ease: 'elastic.out(1, 0.5)', overwrite: true });
                     });
                 }
-            });
+            };
 
-            card.addEventListener('mouseleave', () => {
+            const onLeave = () => {
                 leaveTimeout = setTimeout(() => {
                     cards.forEach((c, i) => {
                         gsap.to(c, { x: 0, y: 0, scale: 1, rotation: originalData[i].rotation, duration: 1.0, ease: 'elastic.out(1, 0.5)', overwrite: true, zIndex: i + 1 });
                     });
                 }, 80);
-            });
+            };
+
+            card.addEventListener('mouseenter', onEnter);
+            card.addEventListener('mouseleave', onLeave);
+            enterHandlers.push(onEnter);
+            leaveHandlers.push(onLeave);
         });
-    } else {
-        // ─── Mobile: Stacked card scroll reveal ───
-        const cardsWrapper = document.querySelector('.cards-wrapper');
-        const scrollPerCard = window.innerHeight * 0.8;
-        const navH = 60;
-        const mobileRotations = [-6, 4, -8, 5, -3];
+
+        // Cleanup: runs automatically the instant the viewport no longer
+        // matches "(min-width: 769px)" — removes listeners and resets any
+        // inline transform GSAP left behind, so the mobile branch below
+        // starts from a clean slate.
+        return () => {
+            cards.forEach((card, index) => {
+                card.removeEventListener('mouseenter', enterHandlers[index]);
+                card.removeEventListener('mouseleave', leaveHandlers[index]);
+            });
+            if (leaveTimeout) clearTimeout(leaveTimeout);
+            gsap.killTweensOf(cards);
+            gsap.set(cards, { clearProps: 'all' });
+        };
+    });
+
+    mm.add('(max-width: 768px)', () => {
+        // ─── Mobile: scroll-linked transition, no pinning ───
+        // Each card's entrance is tied to scroll position via `scrub`
+        // (not a one-shot toggleActions), so it visibly animates in sync
+        // as you scroll — that's the "transition" that was lost when the
+        // pinned version was removed. The difference from the old, buggy
+        // version: this trigger is just the card's own natural position
+        // in normal document flow. There's no pin, no custom wrapper
+        // height, no shared pixel-distance math between multiple cards —
+        // each card's animation is fully self-contained, so there's
+        // nothing for a scroll-distance mismatch to get out of sync
+        // with, and nothing that can stay "stuck" on screen.
+        // Rotation is safe to bring back here (unlike the earlier
+        // always-rotated version) because it animates OUT to 0 by the
+        // time the card is at rest — any transient corner overhang only
+        // exists mid-scroll, while .cards-wrapper still clips via
+        // overflow:hidden, and the final resting state is never rotated.
+        const mobileRotations = [-3, 2, -4, 3, -2];
+        const triggers = [];
 
         cards.forEach((card, i) => {
-            gsap.set(card, {
-                position: 'absolute', left: '50%', top: '0', xPercent: -50,
-                y: i === 0 ? 0 : window.innerHeight * 1.1,
-                rotation: mobileRotations[i % mobileRotations.length],
-                zIndex: i + 1,
-                transformOrigin: 'center center'
-            });
-        });
-
-        const wrapperH = window.innerHeight * 0.7 + scrollPerCard * (cards.length - 1);
-        gsap.set(cardsWrapper, { height: wrapperH });
-
-        ScrollTrigger.create({
-            trigger: cardsWrapper,
-            start: `top ${navH}px`,
-            end: `+=${scrollPerCard * (cards.length - 1)}`,
-            pin: true,
-            pinSpacing: true,
-            id: 'mobile-cards-pin'
-        });
-
-        cards.forEach((card, i) => {
-            if (i === 0) return;
-            gsap.fromTo(card,
-                { y: window.innerHeight * 1.1 },
+            const st = gsap.fromTo(card,
+                { y: 90, rotation: mobileRotations[i % mobileRotations.length], autoAlpha: 0 },
                 {
                     y: 0,
-                    ease: 'power3.out',
+                    rotation: 0,
+                    autoAlpha: 1,
+                    ease: 'none',
                     scrollTrigger: {
-                        trigger: cardsWrapper,
-                        start: `top+=${(i - 1) * scrollPerCard} ${navH}px`,
-                        end: `top+=${i * scrollPerCard} ${navH}px`,
+                        trigger: card,
+                        start: 'top 95%',
+                        end: 'top 55%',
                         scrub: 0.4
                     }
                 }
-            );
+            ).scrollTrigger;
+            triggers.push(st);
         });
-    }
+
+        // Cleanup: runs automatically when the viewport grows past 768px.
+        return () => {
+            triggers.forEach(st => st && st.kill());
+            gsap.killTweensOf(cards);
+            gsap.set(cards, { clearProps: 'all' });
+        };
+    });
+
+    return mm;
 }

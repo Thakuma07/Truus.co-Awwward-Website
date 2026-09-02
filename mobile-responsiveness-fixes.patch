@@ -1,0 +1,230 @@
+diff --git a/app/styles/footer.css b/app/styles/footer.css
+index c1f3caa..8857031 100644
+--- a/app/styles/footer.css
++++ b/app/styles/footer.css
+@@ -10,7 +10,7 @@
+     padding: 80px 40px 40px;
+     position: relative;
+     overflow: hidden;
+-    min-height: 95vh;
++    min-height: 95svh;
+     display: flex;
+     flex-direction: column;
+     justify-content: space-between;
+diff --git a/app/styles/hero.css b/app/styles/hero.css
+index eed5d96..2dceb59 100644
+--- a/app/styles/hero.css
++++ b/app/styles/hero.css
+@@ -1,17 +1,17 @@
+ /* ─── Hero / Content Section ─────────────────────────────────────────────── */
+ .content-section {
+-    padding: 200px 20px 0px;
++    padding: clamp(80px, 18vw, 200px) 24px 0px;
+     text-align: center;
+ }
+ 
+ .title-container {
+-    margin-bottom: 80px;
++    margin-bottom: clamp(40px, 8vw, 80px);
+     position: relative;
+     display: inline-block;
+ }
+ 
+ .main-title {
+-    font-size: 6rem;
++    font-size: clamp(2.25rem, 8vw, 6rem);
+     font-family: 'Epilogue', sans-serif;
+     font-weight: 800;
+     letter-spacing: -4px;
+diff --git a/app/styles/horizontal-words.css b/app/styles/horizontal-words.css
+index 5b8ac5b..4f71ff2 100644
+--- a/app/styles/horizontal-words.css
++++ b/app/styles/horizontal-words.css
+@@ -4,7 +4,7 @@
+     position: relative;
+     width: 100%;
+     /* Keep section nicely sized so it takes up full viewport */
+-    height: 100vh;
++    height: 100svh;
+     background-color: var(--bg-color);
+     overflow: hidden;
+     /* Removed flex to control absolute positioning manually */
+diff --git a/app/styles/marquee.css b/app/styles/marquee.css
+index 66f63f2..d865f73 100644
+--- a/app/styles/marquee.css
++++ b/app/styles/marquee.css
+@@ -6,7 +6,7 @@
+     justify-content: space-between;
+     align-items: center;
+     gap: 60px;
+-    min-height: 100vh;
++    min-height: 100svh;
+ }
+ 
+ /* ─── Left Panel ─────────────────────────────────────────────────────────── */
+diff --git a/app/styles/motion-cards.css b/app/styles/motion-cards.css
+index b12ced7..e6648a2 100644
+--- a/app/styles/motion-cards.css
++++ b/app/styles/motion-cards.css
+@@ -2,7 +2,7 @@
+ .motion-card-section {
+     position: relative;
+     width: 100%;
+-    padding: 120px 60px 100px;
++    padding: clamp(60px, 10vw, 120px) clamp(24px, 5vw, 60px) clamp(60px, 8vw, 100px);
+     text-align: center;
+     overflow: hidden;
+     z-index: 1;
+@@ -17,7 +17,7 @@
+ 
+ .motion-card__title {
+     font-family: 'Epilogue', sans-serif;
+-    font-size: 7rem;
++    font-size: clamp(2rem, 9vw, 7rem);
+     font-weight: 750;
+     line-height: 0.9;
+     letter-spacing: -5px;
+@@ -30,13 +30,13 @@
+     font-family: 'Times New Roman', 'Georgia', serif;
+     font-style: italic;
+     font-weight: 400;
+-    font-size: 7.5rem;
++    font-size: clamp(2.1rem, 9.5vw, 7.5rem);
+     line-height: 1.15;
+     letter-spacing: -2px;
+     color: var(--color-dark);
+     position: relative;
+     display: inline-block;
+-    top: -30px;
++    top: clamp(-14px, -2.5vw, -30px);
+ }
+ 
+ /* SVG sticker placeholder (top-right of subtitle) */
+diff --git a/app/styles/responsive.css b/app/styles/responsive.css
+index f6efd7a..2c6844d 100644
+--- a/app/styles/responsive.css
++++ b/app/styles/responsive.css
+@@ -80,13 +80,14 @@
+     }
+ 
+     /* ── Content / Hero Title ───────── */
++    /* .content-section, .main-title and .title-container are now fluid
++       via clamp() in hero.css — no fixed-breakpoint override needed here,
++       which removes the "jump" between desktop and mobile sizes. */
+     .content-section {
+-        padding: 80px 0 0;
+         overflow: visible;
+     }
+ 
+     .main-title {
+-        font-size: 3rem;
+         letter-spacing: -2px;
+     }
+ 
+@@ -95,10 +96,6 @@
+         bottom: -10px;
+     }
+ 
+-    .title-container {
+-        margin-bottom: 50px;
+-    }
+-
+     /* ── Cards (GSAP-controlled) ─────── */
+     .cards-wrapper {
+         position: relative !important;
+@@ -119,6 +116,34 @@
+         pointer-events: none;
+     }
+ 
++    /* ── Motion Cards (blob + stickers must not overlap text) ── */
++    .motion-card__cards-area {
++        height: 62vw;
++        margin: 24px auto 48px;
++    }
++
++    .motion-card__blob {
++        width: 70vw;
++        height: 60vw;
++        transform: translate(-92%, -45%);
++        opacity: 0.9;
++    }
++
++    .motion-card__sticker--top {
++        width: 90px;
++        height: 48px;
++        top: -8px;
++        right: -10px;
++    }
++
++    .motion-card__floating-label {
++        padding: 0.5vw 2vw;
++    }
++
++    .motion-card__floating-text {
++        font-size: 0.75rem;
++    }
++
+     /* ── Double Marquee ─────────────── */
+     .Double-marquee {
+         flex-direction: column;
+diff --git a/app/styles/showreel.css b/app/styles/showreel.css
+index 66caae5..4d148d7 100644
+--- a/app/styles/showreel.css
++++ b/app/styles/showreel.css
+@@ -2,7 +2,7 @@
+ .showreel-section {
+     position: relative;
+     width: 100%;
+-    min-height: 100vh;
++    min-height: 100svh;
+     background-color: var(--color-black-deep);
+     display: flex;
+     align-items: center;
+diff --git a/app/styles/vimeo-hero.css b/app/styles/vimeo-hero.css
+index 7808410..8b19709 100644
+--- a/app/styles/vimeo-hero.css
++++ b/app/styles/vimeo-hero.css
+@@ -4,7 +4,7 @@
+ .vimeo-hero {
+     position: relative;
+     width: calc(100% - 24px);
+-    height: calc(100vh - 24px);
++    height: calc(100svh - 24px);
+     margin: 12px auto;
+     overflow: hidden;
+     background-color: var(--color-black-soft);
+@@ -21,7 +21,7 @@
+     width: 100vw;
+     height: 56.25vw;
+     /* 16:9 */
+-    min-height: 100vh;
++    min-height: 100svh;
+     min-width: 177.78vh;
+     /* 16:9 inverted */
+     border: none;
+diff --git a/components/ServiceCards.jsx b/components/ServiceCards.jsx
+index 013c3b0..5c19492 100644
+--- a/components/ServiceCards.jsx
++++ b/components/ServiceCards.jsx
+@@ -156,13 +156,18 @@ function initCardAnimations() {
+             });
+         });
+ 
+-        const wrapperH = window.innerHeight * 0.7 + scrollPerCard * (cards.length - 1);
+-        gsap.set(cardsWrapper, { height: wrapperH });
++        // The wrapper's own height only needs to cover the pinned card stack
++        // itself (one card's worth of viewport). The *scroll distance* for
++        // revealing every card is provided separately by ScrollTrigger's
++        // pinSpacing, so the wrapper no longer needs extra height baked in —
++        // that mismatch was what left a blank gap after the pin released.
++        const pinDistance = scrollPerCard * (cards.length - 1);
++        gsap.set(cardsWrapper, { height: window.innerHeight * 0.9 });
+ 
+         ScrollTrigger.create({
+             trigger: cardsWrapper,
+             start: `top ${navH}px`,
+-            end: `+=${scrollPerCard * (cards.length - 1)}`,
++            end: `+=${pinDistance}`,
+             pin: true,
+             pinSpacing: true,
+             id: 'mobile-cards-pin'
