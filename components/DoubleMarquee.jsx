@@ -64,9 +64,21 @@ export default function DoubleMarquee() {
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
 
-        const mobile = window.matchMedia('(max-width: 768px)').matches;
-        setIsMobile(mobile);
-        setTracks(buildMarqueeItems(mobile));
+        // The (max-width: 768px) check used to only run once on mount, so
+        // resizing the viewport afterwards (e.g. a DevTools device-toolbar
+        // resize with no full reload) left `isMobile` stale — the CSS grid
+        // layout would switch correctly, but the JS-built track data
+        // (duplicated-for-loop vs. not) would silently mismatch it,
+        // rendering double the logo tiles in the mobile grid. Listening
+        // for the media query to change keeps them in sync.
+        const mq = window.matchMedia('(max-width: 768px)');
+        const applyMode = (mobile) => {
+            setIsMobile(mobile);
+            setTracks(buildMarqueeItems(mobile));
+        };
+        const handleChange = (e) => applyMode(e.matches);
+        applyMode(mq.matches);
+        mq.addEventListener('change', handleChange);
 
         // Arrow path animation
         gsap.set('.marquee-left .marquee-svg-item:nth-child(2) path', { strokeDashoffset: 1000 });
@@ -85,6 +97,7 @@ export default function DoubleMarquee() {
             .to('.marquee-left .marquee-svg-item:nth-child(2) path', { strokeDashoffset: 0, duration: 1.5, ease: 'power2.out' }, '-=0.3');
 
         return () => {
+            mq.removeEventListener('change', handleChange);
             ScrollTrigger.getAll().forEach(t => { if (t.vars.trigger === '.Double-marquee') t.kill(); });
         };
     }, []);

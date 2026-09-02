@@ -46,8 +46,24 @@
 @media (max-width: 768px) {
 
     /* ── Navbar ─────────────────────── */
+    /* On desktop the navbar is intentionally transparent — plenty of
+       horizontal space keeps it clear of the content beneath it, and
+       text color already inverts via .on-dark/.on-light. On a narrow
+       mobile screen, though, the full-width bar sits directly on top
+       of scrolling text with no room to breathe, which read as content
+       "scattered over" the nav. A translucent, blurred backdrop keeps
+       it legible no matter what scrolls underneath, while still
+       tinting to match .on-dark/.on-light so it doesn't look like a
+       flat design mismatch. */
     .navbar {
         padding: 14px 16px;
+        background: rgba(245, 240, 232, 0.75);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    .navbar.on-dark {
+        background: rgba(20, 20, 20, 0.55);
     }
 
     .logo-truus {
@@ -80,13 +96,14 @@
     }
 
     /* ── Content / Hero Title ───────── */
+    /* .content-section, .main-title and .title-container are now fluid
+       via clamp() in hero.css — no fixed-breakpoint override needed here,
+       which removes the "jump" between desktop and mobile sizes. */
     .content-section {
-        padding: 80px 0 0;
         overflow: visible;
     }
 
     .main-title {
-        font-size: 3rem;
         letter-spacing: -2px;
     }
 
@@ -95,28 +112,108 @@
         bottom: -10px;
     }
 
-    .title-container {
-        margin-bottom: 50px;
-    }
-
-    /* ── Cards (GSAP-controlled) ─────── */
+    /* ── Cards (simple stacked flow — see note below) ──
+       The mobile card stack used to be entirely GSAP/JS-driven: each
+       card absolutely positioned and moved into place by a pinned
+       ScrollTrigger. Across several rounds this kept resurfacing new
+       bugs (a huge dead scroll gap, a card getting stuck fixed on
+       screen over later sections, cards flying in from the wrong
+       place) because pin-spacer sizing has to stay perfectly in sync
+       with several independent scroll calculations, and any mismatch
+       shows up as a visible glitch.
+       The tablet breakpoint just above already avoids all of this by
+       laying cards out in normal document flow with plain CSS — no
+       absolute positioning, no pin. Mobile now does the same. Cards
+       still visually overlap slightly (see margin-top below) for a
+       stacked-deck look, and ServiceCards.jsx adds a lightweight
+       fade/slide-in per card as it scrolls into view, but nothing is
+       pinned and nothing depends on matching scroll-pixel math. ── */
     .cards-wrapper {
         position: relative !important;
-        display: block !important;
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
         width: 100% !important;
+        max-width: 100vw;
         margin: 0 auto !important;
-        overflow: visible !important;
+        padding: 20px 0 40px;
+        overflow: hidden;
+        box-sizing: border-box;
+        height: auto !important;
     }
 
     .card {
-        width: 82vw;
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        right: auto !important;
+        transform: none !important;
+        /* Fixed 24px side margins (matching the rest of the site's mobile
+           margin standard) via calc(), rather than a vw-based width —
+           this guarantees the card can never be wider than the viewport
+           allows regardless of rounding, and needs no rotation-clearance
+           math since rotation has been removed below. */
+        width: calc(100% - 48px);
         max-width: 340px;
-        min-height: 420px;
+        min-height: 380px;
         height: auto;
+        margin-top: -36px;
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+        /* Rotation was removed here: it visually looked nice but every
+           rotated card needs extra horizontal clearance to avoid its
+           corners getting clipped, and that clearance math is one more
+           thing that can silently go wrong on a screen this narrow. Not
+           worth the risk for a small decorative flourish. */
+        margin-top: -36px;
+    }
+
+    .card:first-child {
+        margin-top: 0;
     }
 
     .card-sticker {
         pointer-events: none;
+    }
+
+    /* ── Horizontal Words ("we wanna be where the people are") ──
+       NOTE: this section's mobile rules now live inside
+       horizontal-words.css itself, not here. That file is imported
+       directly by HorizontalWords.jsx (not through globals.css like
+       every other section), which put it LAST in the final CSS bundle
+       — after this file — so any override placed here was silently
+       losing the cascade to that file's base (non-media) rule,
+       regardless of viewport. Keeping a section's mobile overrides in
+       the same file as its base rule avoids that entirely, since
+       order *within* one file is always unambiguous. ── */
+
+    /* ── Motion Cards (blob + stickers must not overlap text) ── */
+    .motion-card__cards-area {
+        height: 62vw;
+        margin: 24px auto 48px;
+    }
+
+    .motion-card__blob {
+        width: 70vw;
+        height: 60vw;
+        transform: translate(-92%, -45%);
+        opacity: 0.9;
+    }
+
+    .motion-card__sticker--top {
+        width: 90px;
+        height: 48px;
+        top: -8px;
+        right: -10px;
+    }
+
+    .motion-card__floating-label {
+        padding: 0.5vw 2vw;
+    }
+
+    .motion-card__floating-text {
+        font-size: 0.75rem;
     }
 
     /* ── Double Marquee ─────────────── */

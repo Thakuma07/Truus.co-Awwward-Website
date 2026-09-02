@@ -32,7 +32,21 @@ const HorizontalWords = () => {
             // To make letters start animating as we scroll down from VimeoHero,
             // we start the horizontal movement as soon as the section enters the viewport (top bottom).
             const entranceDistance = window.innerHeight;
-            const pinnedDistance = 2500;
+
+            // The scroll distance needed to fully reveal the horizontal text
+            // must match how far the text actually has to travel — which
+            // depends on its rendered width, which itself depends on the
+            // viewport (the heading's font-size is set in `vw`). A fixed
+            // desktop-tuned constant here (previously `2500`) meant that on
+            // a narrow mobile screen — where the heading renders far
+            // smaller — the text finished sliding across early and then
+            // just sat still for the remaining scroll distance, which reads
+            // as a big static/blank stretch while scrolling.
+            const travelDistance = Math.max(
+                textRef.scrollWidth - window.innerWidth * 0.5,
+                window.innerWidth * 0.5
+            );
+            const pinnedDistance = Math.max(travelDistance, window.innerHeight * 0.75);
 
             const scrollTween = gsap.timeline({
                 scrollTrigger: {

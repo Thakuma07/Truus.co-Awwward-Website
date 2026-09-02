@@ -6,7 +6,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 60px;
-    min-height: 100vh;
+    min-height: 100svh;
 }
 
 /* ─── Left Panel ─────────────────────────────────────────────────────────── */
